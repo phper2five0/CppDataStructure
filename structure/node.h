@@ -14,10 +14,10 @@ public:
     int value;
 };
 
-class TreeNode : public Node {
+class TreeNode : public Node, public std::enable_shared_from_this<TreeNode> {
 public:
-    TreeNode *left;
-    TreeNode *right;
+    std::shared_ptr<TreeNode> left;
+    std::shared_ptr<TreeNode> right;
 };
 
 class LinkNode : public Node, public std::enable_shared_from_this<LinkNode> {
@@ -28,7 +28,10 @@ public:
 
 std::shared_ptr<LinkNode> InitLink(const int *array, int length);
 void PrintLink(const std::shared_ptr<LinkNode>& linkHead);
-LinkNode *InitTree(int *array, int length);
+std::shared_ptr<TreeNode> InitTree(int *array, int length);
+void InsertToTree(std::shared_ptr<TreeNode>& root, int value);
+void PrintPreOrderTree(const std::shared_ptr<TreeNode>& root);
+void PrintMidOrderTree(const std::shared_ptr<TreeNode>& root);
 
 
 #endif //SOLUTION_NODE_H
