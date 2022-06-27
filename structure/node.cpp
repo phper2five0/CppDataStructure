@@ -45,3 +45,73 @@ void PrintLink(const std::shared_ptr<LinkNode>& linkHead) {
     }
     std::cout << std::endl;
 }
+
+/**
+ * @brief 根据数组创建一颗二叉排序树
+ * @param array 数组的首指针
+ * @param length 数组的长度
+ * @return 二叉树根节点
+ */
+std::shared_ptr<TreeNode> InitTree(int *array, int length) {
+    if (length < 1) {
+        return nullptr;
+    }
+    std::shared_ptr<TreeNode> root = std::make_shared<TreeNode>();
+    root->value = array[0];
+    for (int i = 1; i < length; i++) {
+        InsertToTree(root, array[i]);
+    }
+    return root;
+}
+
+/**
+ * @brief 将数值插入到一颗二叉排序树中
+ * @param root 二叉排序树的根节点
+ * @param value 需要插入的值
+ */
+void InsertToTree(std::shared_ptr<TreeNode>& root, int value) {
+    if (root == nullptr) {
+        root = make_shared<TreeNode>();
+        root->value = value;
+        return;
+    }
+    if (value < root->value) {
+        InsertToTree(root->left, value);
+    } else {
+        InsertToTree(root->right, value);
+    }
+}
+
+/**
+ * @brief 前序遍历输出二叉树
+ * @param root 二叉树的根节点
+ */
+void PrintPreOrderTree(const std::shared_ptr<TreeNode>& root) {
+    if (root == nullptr) {
+        return;
+    }
+    std::cout << root->value << "  ";
+    if (root->left != nullptr) {
+        PrintPreOrderTree(root->left);
+    }
+    if (root->right != nullptr) {
+        PrintPreOrderTree(root->right);
+    }
+}
+
+/**
+ * @brief 中序遍历输出二叉树
+ * @param root 二叉树的根节点
+ */
+void PrintMidOrderTree(const std::shared_ptr<TreeNode>& root) {
+    if (root == nullptr) {
+        return;
+    }
+    if (root->left != nullptr) {
+        PrintMidOrderTree(root->left);
+    }
+    std::cout << root->value << "  ";
+    if (root->right != nullptr) {
+        PrintMidOrderTree(root->right);
+    }
+}
